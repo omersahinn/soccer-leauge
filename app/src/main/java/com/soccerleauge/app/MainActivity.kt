@@ -10,9 +10,11 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.*
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.ThumbUp
+import androidx.compose.material.icons.outlined.Star
+import androidx.compose.material.icons.outlined.ThumbUp
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ComposeCompilerApi
 import androidx.compose.ui.Alignment
@@ -43,10 +45,21 @@ class MainActivity : ComponentActivity() {
             SoccerleaugeTheme() {
                 Scaffold(
                     topBar = {
-                        TopAppBar() {
-                            Text(text = "Soccer Leauge")
-                        }
-                    },
+                        TopAppBar(
+                            title = {
+                                Text(text = "Soccer Leauge")
+                            },
+
+                            actions = {
+                                IconButton(onClick = { }) {
+                                    Icon(Icons.Outlined.ThumbUp,"")
+                                }
+                            },
+                            backgroundColor = Color.Blue,
+                            contentColor = Color.White,
+                            elevation = 12.dp
+                        )
+                    }
                 ) {
                     val navController = rememberNavController()
                     NavHost(

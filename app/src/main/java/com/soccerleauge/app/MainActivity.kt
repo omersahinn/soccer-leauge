@@ -24,30 +24,23 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.soccerleauge.app.common.Screen
+import com.soccerleauge.app.presentation.fixture.FixtureScreen
+import com.soccerleauge.app.presentation.team_list.TeamListScreen
 import com.soccerleauge.app.repository.TeamRepository
 import com.soccerleauge.app.ui.theme.SoccerleaugeTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
-    private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-           /* val repository = TeamRepository()
-            val viewModelFactory = MainViewModelFactory(repository)
-            viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
-            viewModel.getTeams()
-            viewModel.myResponse.observe(this, Observer { response ->
-                if (response.isSuccessful){
-                    Log.d("Response: ", response.code().toString())
-                }
-
-            }) */
-
-            SoccerleaugeTheme(
-                darkTheme = false
-            ) {
+            SoccerleaugeTheme() {
                 Scaffold(
                     topBar = {
                         TopAppBar() {
@@ -55,44 +48,23 @@ class MainActivity : ComponentActivity() {
                         }
                     },
                 ) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
+                    val navController = rememberNavController()
+                    NavHost(
+                        navController = navController,
+                        startDestination = Screen.TeamListScreen.route
                     ) {
-                        Box(
+                        composable(
+                            route = Screen.TeamListScreen.route
                         ) {
-                            Column(
-                                horizontalAlignment = Alignment.CenterHorizontally,
-                                modifier = Modifier
-                                    .fillMaxHeight(fraction = 0.9f)
-                                    .height(500.dp)
-                                    .verticalScroll(rememberScrollState())
-                            ) {
-                                for (i in 1..50) {
-                                    Row(
-
-                                    ) {
-                                        Text(text = "$i",
-                                            fontSize = 24.sp)
-                                        Spacer(modifier = Modifier.width(55.dp))
-                                        Text(text = "Beşiktaş",
-                                            fontSize = 24.sp)
-                                    }
-                                   
-                                }
-                            }
+                            TeamListScreen(navController)
                         }
-                        Column(
-                            modifier = Modifier.fillMaxWidth().fillMaxHeight(),
-                            verticalArrangement = Arrangement.Center,
-                            horizontalAlignment = Alignment.CenterHorizontally
+                        composable(
+                            route = Screen.FixtureScreen.route
                         ) {
-                            Button(onClick = {})
-                            { Text("Draw Fixture") }
+                            FixtureScreen()
                         }
-
-
-
                     }
+
                 }
             }
         }

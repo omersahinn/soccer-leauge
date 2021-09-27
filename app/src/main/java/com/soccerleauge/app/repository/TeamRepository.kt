@@ -1,13 +1,10 @@
 package com.soccerleauge.app.repository
 
-import com.soccerleauge.app.model.Team
-import com.soccerleauge.app.network.RetrofitInstance
-import retrofit2.Response
+import com.soccerleauge.app.model.TeamDto
 import retrofit2.http.GET
 
-class TeamRepository {
+interface TeamRepository {
 
-    suspend fun getTeams(): Response<List<Team>> {
-        return RetrofitInstance.api.getTeams()
-    }
+    @GET("teams")
+    suspend fun getTeams(): List<TeamDto>
 }

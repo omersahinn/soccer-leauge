@@ -13,14 +13,17 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TeamViewModel @Inject constructor(
-    private val getTeamsUseCase: GetTeamsUseCase
+    private val getTeamsUseCase: GetTeamsUseCase,
 ) : ViewModel() {
 
     private val _state = mutableStateOf(TeamListState())
+    val isDark = mutableStateOf(false)
+
     val state: State<TeamListState> = _state
 
     init {
         getTeams()
+
     }
 
     private fun getTeams() {
@@ -40,5 +43,9 @@ class TeamViewModel @Inject constructor(
                 }
             }
         }.launchIn(viewModelScope)
+    }
+
+    fun toggleMode() {
+        isDark.value = !isDark.value
     }
 }

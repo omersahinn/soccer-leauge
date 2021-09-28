@@ -15,18 +15,25 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import kotlin.properties.Delegates
 import com.google.accompanist.pager.*
+import com.soccerleauge.app.model.FixtureModel
+import com.soccerleauge.app.model.Team
+import com.soccerleauge.app.util.Fixture
 import kotlinx.coroutines.launch
 
 
 @ExperimentalPagerApi
 @Composable
-fun FixtureScreen() {
-    val pagerState = rememberPagerState(pageCount = 5)
+fun FixtureScreen(teams: MutableList<Team>) {
+
+    val fixtureInstance = Fixture()
+
+    var fixtureList = fixtureInstance.getFixture(teams)
+
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier.background(Color.White)
         ) {
-            TabScreen()
+            TabScreen(teams, fixtureList)
         }
     }
 
@@ -34,24 +41,23 @@ fun FixtureScreen() {
 
 @ExperimentalPagerApi
 @Composable
-fun TabScreen() {
-    val pagerState = rememberPagerState(pageCount = 3)
+fun TabScreen(teams: List<Team>, fixtureList: List<FixtureModel>) {
+    val pagerState = rememberPagerState(pageCount = fixtureList.size)
     Column(
         modifier = Modifier.background(Color.White)
     ) {
-        Tabs(pagerState = pagerState)
-        TabsContent(pagerState = pagerState)
+        Tabs(pagerState = pagerState, fixtureList)
+        TabsContent(pagerState = pagerState, teams, fixtureList[pagerState.currentPage])
     }
 }
 
 
 @ExperimentalPagerApi
 @Composable
-fun Tabs(pagerState: PagerState) {
-    val list = listOf("1. Week", "2. Week", "3. Week", "4. Week", "5. Week")
+fun Tabs(pagerState: PagerState, fixtureList: List<FixtureModel>) {
     val scope = rememberCoroutineScope()
 
-    TabRow(
+    ScrollableTabRow(
         selectedTabIndex = pagerState.currentPage,
         backgroundColor = Color.Blue,
         contentColor = Color.White,
@@ -69,11 +75,11 @@ fun Tabs(pagerState: PagerState) {
             )
         }
     ) {
-        list.forEachIndexed { index, _ ->
+        fixtureList.forEachIndexed { index, _ ->
             Tab(
                 text = {
                     Text(
-                        list[index],
+                        fixtureList[index].week.toString() + ". Week",
                         color = if (pagerState.currentPage == index) Color.White else Color.LightGray
                     )
                 },
@@ -90,11 +96,8 @@ fun Tabs(pagerState: PagerState) {
 
 @ExperimentalPagerApi
 @Composable
-fun TabsContent(pagerState: PagerState) {
+fun TabsContent(pagerState: PagerState, teams: List<Team>, fixtureModel: FixtureModel) {
     HorizontalPager(state = pagerState, dragEnabled = true) {
-        Text(text = "asdasdassad")
-        Text(text = "asdasdassad")
-        Text(text = "asdasdassad")
-
+        FixtureTabPage(fixtureModel = fixtureModel)
     }
 }

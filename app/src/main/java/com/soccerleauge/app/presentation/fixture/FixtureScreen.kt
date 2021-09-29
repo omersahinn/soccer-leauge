@@ -31,7 +31,6 @@ fun FixtureScreen(teams: MutableList<Team>) {
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
-            modifier = Modifier.background(Color.White)
         ) {
             TabScreen(teams, fixtureList)
         }
@@ -44,7 +43,6 @@ fun FixtureScreen(teams: MutableList<Team>) {
 fun TabScreen(teams: List<Team>, fixtureList: List<FixtureModel>) {
     val pagerState = rememberPagerState(pageCount = fixtureList.size)
     Column(
-        modifier = Modifier.background(Color.White)
     ) {
         Tabs(pagerState = pagerState, fixtureList)
         TabsContent(pagerState = pagerState, teams, fixtureList[pagerState.currentPage])

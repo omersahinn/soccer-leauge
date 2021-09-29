@@ -10,6 +10,7 @@
 * Jetpack Navigation Component
 * OOP principles
 * Supporting dark mode from system settings
+* Round robin tournament algorithm to determine fixture
 
 ## Apk Path
 * app -> release -> app-release.apk

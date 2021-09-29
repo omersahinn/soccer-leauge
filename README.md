@@ -11,8 +11,11 @@
 * OOP principles
 * Supporting dark mode from system settings
 
+## Apk Path
+* app -> release -> app-release.apk
+
 ## Screenshots
 
-* ![Team List](https://github.com/omersahinn/soccer-leauge/blob/main/screenshots/ss1.png?raw=true)
-* ![Fixture](https://github.com/omersahinn/soccer-leauge/blob/main/screenshots/ss2.png?raw=true)
+ ![Team List](https://github.com/omersahinn/soccer-leauge/blob/main/screenshots/ss1.png?raw=true)
+ ![Fixture](https://github.com/omersahinn/soccer-leauge/blob/main/screenshots/ss2.png?raw=true)
 
